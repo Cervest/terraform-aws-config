@@ -377,6 +377,21 @@ resource "aws_config_config_rule" "s3-bucket-public-write-prohibited" {
   depends_on = [aws_config_configuration_recorder.main]
 }
 
+resource "aws_config_config_rule" "s3-bucket-public-read-prohibited" {
+  count       = var.check_s3_bucket_public_read_prohibited ? 1 : 0
+  name        = "s3-bucket-public-read-prohibited"
+  description = "Checks that your S3 buckets do not allow public read access."
+
+  source {
+    owner             = "AWS"
+    source_identifier = "S3_BUCKET_PUBLIC_READ_PROHIBITED"
+  }
+
+  tags = var.tags
+
+  depends_on = [aws_config_configuration_recorder.main]
+}
+
 resource "aws_config_config_rule" "eip_attached" {
   count       = var.check_eip_attached ? 1 : 0
   name        = "eip-attached"

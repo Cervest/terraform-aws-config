@@ -219,6 +219,12 @@ variable "check_rds_snapshots_public_prohibited" {
   default     = true
 }
 
+variable "check_s3_bucket_public_read_prohibited" {
+  description = "Enable s3-bucket-public-read-prohibited rule"
+  type        = bool
+  default     = false
+}
+
 variable "check_s3_bucket_public_write_prohibited" {
   description = "Enable s3-bucket-public-write-prohibited rule"
   type        = bool
