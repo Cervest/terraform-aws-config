@@ -225,6 +225,21 @@ resource "aws_config_config_rule" "acm-certificate-expiration-check" {
   depends_on = [aws_config_configuration_recorder.main]
 }
 
+resource "aws_config_config_rule" "ebs-optimized-instance" {
+  count       = var.check_ebs_optimized_instances ? 1 : 0
+  name        = "ebs-optimized-instance-check"
+  description = "Detects whether Amazon EC2 instances are launched without an Amazon EBS volume that is optimized for performance"
+
+  source {
+    owner             = "AWS"
+    source_identifier = "EBS_OPTIMIZED_INSTANCE"
+  }
+
+  tags = var.tags
+
+  depends_on = [aws_config_configuration_recorder.main]
+}
+
 resource "aws_config_config_rule" "ec2-volume-inuse-check" {
   count       = var.check_ec2_volume_inuse_check ? 1 : 0
   name        = "ec2-volume-inuse-check"
@@ -400,6 +415,21 @@ resource "aws_config_config_rule" "eip_attached" {
   source {
     owner             = "AWS"
     source_identifier = "EIP_ATTACHED"
+  }
+
+  tags = var.tags
+
+  depends_on = [aws_config_configuration_recorder.main]
+}
+
+resource "aws_config_config_rule" "restricted-common-ports" {
+  count       = var.check_restricted_common_ports ? 1 : 0
+  name        = "restricted-common-ports-check"
+  description = "This control helps reduce a server's exposure to risk by detecting whether unrestricted incoming TCP traffic is allowed."
+
+  source {
+    owner             = "AWS"
+    source_identifier = "RESTRICTED_INCOMING_TRAFFIC"
   }
 
   tags = var.tags

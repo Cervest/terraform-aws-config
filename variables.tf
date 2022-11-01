@@ -135,6 +135,12 @@ variable "check_eip_attached" {
   default     = false
 }
 
+variable "check_restricted_common_ports" {
+  description = "Enable restricted-common-ports-check"
+  type        = bool
+  default     = false
+}
+
 variable "check_required_tags" {
   description = "Enable required-tags rule"
   type        = bool
@@ -259,6 +265,12 @@ variable "check_ebs_snapshot_public_restorable" {
   description = "Enable ebs-snapshot-public-restorable rule"
   type        = bool
   default     = true
+}
+
+variable "check_ebs_optimized_instances" {
+  description = "Enable ebs-optimized-instance-check rule"
+  type        = bool
+  default     = false
 }
 
 variable "check_vpc_default_security_group_closed" {
